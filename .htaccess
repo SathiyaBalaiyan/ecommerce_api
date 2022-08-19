@@ -1,0 +1,22 @@
+RewriteEngine On 
+
+RewriteRule ^seller-signup$ user.php [NC,N,QSA]
+RewriteRule ^seller-signin$ user.php [NC,N,QSA]
+RewriteRule ^update-sellerprofile$ user.php [NC,N,QSA]
+
+RewriteRule ^customer-signup$ user.php [NC,N,QSA]
+RewriteRule ^customer-signin$ user.php [NC,N,QSA]
+RewriteRule ^update-customerprofile$ user.php [NC,N,QSA]
+
+
+
+
+RewriteRule ^products$ product.php [NC,N,QSA]
+RewriteRule ^getallproducts$ product.php [NC,N,QSA]
+RewriteRule ^categorydiscountproducts$ product.php [NC,N,QSA]
+RewriteRule ^searchproducts$ product.php [NC,N,QSA]
+
+RewriteRule ^placeorders$ product.php [NC,N,QSA]
+RewriteRule ^orderlist$ product.php [NC,N,QSA]
+RewriteRule ^detailedorder$ product.php [NC,N,QSA]
+
