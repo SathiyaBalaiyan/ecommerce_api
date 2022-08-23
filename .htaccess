@@ -3,10 +3,22 @@ RewriteEngine On
 RewriteRule ^seller-signup$ user.php [NC,N,QSA]
 RewriteRule ^seller-signin$ user.php [NC,N,QSA]
 RewriteRule ^update-sellerprofile$ user.php [NC,N,QSA]
+RewriteRule ^pushnotifications$ user.php [NC,N,QSA]
+RewriteRule ^add-sellerupi$ user.php [NC,N,QSA]
 
 RewriteRule ^customer-signup$ user.php [NC,N,QSA]
 RewriteRule ^customer-signin$ user.php [NC,N,QSA]
 RewriteRule ^update-customerprofile$ user.php [NC,N,QSA]
+
+RewriteRule ^carrier-signup$ user.php [NC,N,QSA]
+RewriteRule ^carrier-signin$ user.php [NC,N,QSA]
+RewriteRule ^update-carrier$ user.php [NC,N,QSA]
+
+RewriteRule ^bugcategory$ user.php [NC,N,QSA]
+RewriteRule ^addqueries$ user.php [NC,N,QSA]
+RewriteRule ^getqueries$ user.php [NC,N,QSA]
+RewriteRule ^feedback$ user.php [NC,N,QSA]
+RewriteRule ^getfeedback$ user.php [NC,N,QSA]
 
 
 
@@ -18,5 +30,22 @@ RewriteRule ^searchproducts$ product.php [NC,N,QSA]
 
 RewriteRule ^placeorders$ product.php [NC,N,QSA]
 RewriteRule ^orderlist$ product.php [NC,N,QSA]
+RewriteRule ^orderstatuslist$ product.php [NC,N,QSA]
 RewriteRule ^detailedorder$ product.php [NC,N,QSA]
 
+RewriteRule ^add-deliverperson$ product.php [NC,N,QSA]
+RewriteRule ^deliveredorder$ product.php [NC,N,QSA]
+RewriteRule ^addcategory$ product.php [NC,N,QSA]
+RewriteRule ^add-deliverytime$ product.php [NC,N,QSA]
+RewriteRule ^get-deliverytime$ product.php [NC,N,QSA]
+
+RewriteRule ^add-promotioncode$ product.php [NC,N,QSA]
+RewriteRule ^getall-promotioncode$ product.php [NC,N,QSA]
+RewriteRule ^get-promotioncode$ product.php [NC,N,QSA]
+RewriteRule ^update-promotioncode$ product.php [NC,N,QSA]
+RewriteRule ^delete-promotioncode$ product.php [NC,N,QSA]
+
+RewriteRule ^add-promotionoffer$ product.php [NC,N,QSA]
+RewriteRule ^get-promotionoffer$ product.php [NC,N,QSA]
+RewriteRule ^add-firstpromotionoffer$ product.php [NC,N,QSA]
+RewriteRule ^get-firstpromotionoffer$ product.php [NC,N,QSA]

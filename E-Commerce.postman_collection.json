@@ -1,0 +1,1887 @@
+{
+	"info": {
+		"_postman_id": "6f44e87e-4174-453c-889c-af93d5e96471",
+		"name": "E-Commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19937538"
+	},
+	"item": [
+		{
+			"name": "SellerRegistration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "shopName",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Sathiya",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "7550207381",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sathiya",
+							"type": "text"
+						},
+						{
+							"key": "shopDescription",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "No:8, nesammal nagar, madhavan street, nerkundram mettukuppam",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Chennai",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "TamilNadu",
+							"type": "text"
+						},
+						{
+							"key": "pincode",
+							"value": "600107",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text"
+						},
+						{
+							"key": "shopImages[]",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/seller-signup",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"seller-signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SellerLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mobile",
+							"value": "7550207382",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sathiya",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/seller-signin",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"seller-signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SellerUpdateProfile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "shopName",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Sathya",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "7550207381",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sathiya",
+							"type": "text"
+						},
+						{
+							"key": "shopDescription",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "No:8, nesammal nagar, madhavan street, nerkundram mettukuppam",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Chennai",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "TamilNadu",
+							"type": "text"
+						},
+						{
+							"key": "pincode",
+							"value": "600107",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "sathya@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "delivery",
+							"value": "home",
+							"type": "text"
+						},
+						{
+							"key": "shopImages[]",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/update-sellerprofile",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"update-sellerprofile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CustomerSignup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Sathiya",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "7550207381",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sathiya",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "No:8, nesammal nagar, madhavan street, nerkundram mettukuppam",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Chennai",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "TamilNadu",
+							"type": "text"
+						},
+						{
+							"key": "pincode",
+							"value": "600107",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/customer-signup",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"customer-signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CustomerLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mobile",
+							"value": "7550207382",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sathiya",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/customer-signin",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"customer-signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CustomerUpdateProfile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Sathya",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "7550207381",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sathiya",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "No:8, nesammal nagar, madhavan street, nerkundram mettukuppam",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Chennai",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "TamilNadu",
+							"type": "text"
+						},
+						{
+							"key": "pincode",
+							"value": "600107",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "sathya@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "delivery",
+							"value": "home",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/update-customerprofile",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"update-customerprofile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InsertProduct",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "productName",
+							"value": "Watermelon",
+							"type": "text"
+						},
+						{
+							"key": "productQty",
+							"value": "1 pcs",
+							"type": "text"
+						},
+						{
+							"key": "productPrice",
+							"value": "150",
+							"type": "text"
+						},
+						{
+							"key": "productDescription",
+							"value": "Healthy",
+							"type": "text"
+						},
+						{
+							"key": "productImage",
+							"type": "file",
+							"src": "/Users/MDQ/Downloads/images/watermelon.jpg"
+						},
+						{
+							"key": "productCategory",
+							"value": "Fruits",
+							"type": "text"
+						},
+						{
+							"key": "soldOut",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "discountAvailable",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "productDiscountPrice",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "productDiscountNote",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/products",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllProducts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/getallproducts",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"getallproducts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CategoryDiscountProducts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "productCategory",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "discountAvailable",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/categorydiscountproducts",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"categorydiscountproducts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchProducts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "productCategory",
+							"value": "fruits",
+							"type": "text"
+						},
+						{
+							"key": "productDescription",
+							"value": "healthy",
+							"type": "text"
+						},
+						{
+							"key": "productName",
+							"value": "apple",
+							"type": "text"
+						},
+						{
+							"key": "productDiscountNote",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/searchproducts",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"searchproducts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PlaceOrders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "items",
+							"value": "{\"1\":{\"productId\":\"1\", \"productName\":\"Apple\",\"productQty\":\"1 Kg\",\"productPrice\":\"200\",\"orderedQty\":\"1 Kg\"},\"2\":{\"productId\":\"2\", \"productName\":\"Watermelon\",\"productQty\":\"1 pcs\",\"productPrice\":\"100\",\"orderedQty\":\"1 pcs\"}}",
+							"type": "text"
+						},
+						{
+							"key": "customerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "deliveryFee",
+							"value": "20",
+							"type": "text"
+						},
+						{
+							"key": "deliveryOption",
+							"value": "Home",
+							"type": "text"
+						},
+						{
+							"key": "deliveryTime",
+							"value": "10:00 a.m",
+							"type": "text"
+						},
+						{
+							"key": "firstPromoOffer",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "orderCost",
+							"value": "350",
+							"type": "text"
+						},
+						{
+							"key": "orderStatus",
+							"value": "Process",
+							"type": "text"
+						},
+						{
+							"key": "paymentOption",
+							"value": "COD",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/placeorders",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"placeorders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OrderList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "customerId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/orderlist",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"orderlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DetailedOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "customerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "orderId",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/detailedorder",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"detailedorder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OrderStatusList",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/orderstatuslist",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"orderstatuslist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CarrierRegistration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "firstName",
+							"value": "Sathiya",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Balaiyan",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "sathiya@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "7550207382",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sathiya",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "Plot #11, madhavan street, nesammal nagar, nerkundram mettukuppam",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Chennai",
+							"type": "text"
+						},
+						{
+							"key": "pinCode",
+							"value": "600107",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "TamilNadu",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text"
+						},
+						{
+							"key": "carrierImage",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/carrier-signup",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"carrier-signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CarrierLogin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mobile",
+							"value": "7550207382",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sathiya",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/carrier-signin",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"carrier-signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CarrierUpdate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "firstName",
+							"value": "Sathiya",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Balaiyan",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "sathiya12@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "7550207382",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sathiya",
+							"type": "text"
+						},
+						{
+							"key": "carrierImage",
+							"type": "file",
+							"src": "/C:/Users/Dell/Downloads/helping.png"
+						},
+						{
+							"key": "address",
+							"value": "Plot #11, madhavan street, nesammal nagar, nerkundram mettukuppam",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Chennai",
+							"type": "text"
+						},
+						{
+							"key": "pinCode",
+							"value": "600107",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "TamilNadu",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/update-carrier",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"update-carrier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddDeliverPerson",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "orderId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "carrierId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/add-deliverperson",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"add-deliverperson"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDeliveredOrder",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/deliveredorder",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"deliveredorder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddCategory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "mainCategory",
+							"value": "Vegetables",
+							"type": "text"
+						},
+						{
+							"key": "subCategory",
+							"value": "root",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/addcategory",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"addcategory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddDeliveryTime",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "startTime",
+							"value": "10:00 a.m.",
+							"type": "text"
+						},
+						{
+							"key": "endTime",
+							"value": "05:00 p.m.",
+							"type": "text"
+						},
+						{
+							"key": "thresholdTime",
+							"value": "14:00 p.m.",
+							"type": "text"
+						},
+						{
+							"key": "versionNumber",
+							"value": "1.1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/add-deliverytime",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"add-deliverytime"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDeliveryTime",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/get-deliverytime",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"get-deliverytime"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PushNotification",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "pushNotification",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/pushnotifications",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"pushnotifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddSellerUPIDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "upiId",
+							"value": "sathiya098345",
+							"type": "text"
+						},
+						{
+							"key": "upiName",
+							"value": "Sathiya ",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/add-sellerupi",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"add-sellerupi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBugCategory",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/bugcategory",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"bugcategory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddCustomerQueries",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "customerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "customerName",
+							"value": "Sathiya",
+							"type": "text"
+						},
+						{
+							"key": "customerMail",
+							"value": "sathiya@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "customerNumber",
+							"value": "7550207382",
+							"type": "text"
+						},
+						{
+							"key": "shopName",
+							"value": "Freshy",
+							"type": "text"
+						},
+						{
+							"key": "bugCategory",
+							"value": "Related to App",
+							"type": "text"
+						},
+						{
+							"key": "query",
+							"value": "Loading time exceeds more than 20 sec",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/addqueries",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"addqueries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetQueries",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/getqueries",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"getqueries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Feedback",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "customerId",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "rating",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "reviews",
+							"value": "good",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/feedback",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"feedback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFeedback",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/getfeedback",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"getfeedback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddPromotionCode",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "promoCode",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "promoDescription",
+							"value": "tests",
+							"type": "text"
+						},
+						{
+							"key": "promoPrice",
+							"value": "50",
+							"type": "text"
+						},
+						{
+							"key": "promoMinimumPrice",
+							"value": "500",
+							"type": "text"
+						},
+						{
+							"key": "promoExpiryDate",
+							"value": "2022-08-23",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/add-promotioncode",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"add-promotioncode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllPromotionCode",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/getall-promotioncode",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"getall-promotioncode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPromotionCode",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "promoId",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/get-promotioncode",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"get-promotioncode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePromotionCode",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "promoId",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "promoCode",
+							"value": "CODE1234",
+							"type": "text"
+						},
+						{
+							"key": "promoDescription",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "promoPrice",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "promoMinimumPrice",
+							"value": "300",
+							"type": "text"
+						},
+						{
+							"key": "promoExpiryDate",
+							"value": "2022-08-24",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/update-promotioncode",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"update-promotioncode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePromotionCode",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "promoId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/delete-promotioncode",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"delete-promotioncode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddPromotionOffer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "offerPrice",
+							"value": "200",
+							"type": "text"
+						},
+						{
+							"key": "offerText",
+							"value": "test1",
+							"type": "text"
+						},
+						{
+							"key": "offerStatus",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/add-promotionoffer",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"add-promotionoffer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPromotionOffer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/get-promotionoffer",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"get-promotionoffer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFirstTimePromotionOffer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/get-firstpromotionoffer",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"get-firstpromotionoffer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddFirstTimePromotionOffer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app_key",
+						"value": "655f636f6d6d657263655f6d6f62696c65",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sellerId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "firstOfferText",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "firstOfferStatus",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mdqualityapps.com/ecommerce/add-firstpromotionoffer",
+					"protocol": "https",
+					"host": [
+						"mdqualityapps",
+						"com"
+					],
+					"path": [
+						"ecommerce",
+						"add-firstpromotionoffer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

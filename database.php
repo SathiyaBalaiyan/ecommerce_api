@@ -7,148 +7,7 @@
     include_once 'config.php';
 
     class Database extends Config
-    {
-        //To check an exists seller
-        public function existSeller($mobile)
-        {
-            $sql = "SELECT mobile FROM seller WHERE mobile = :mobile";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['mobile' => $mobile]);
-            return $stmt->fetch();
-        }
-        //To register new seller
-        public function registerSeller($shopName, $name, $mobile, $password, $shopDescription, $shopImages, $address, $city, $state, $pincode, $country)
-        {
-            date_default_timezone_set('Asia/Kolkata');
-            $createdAt = date("Y-m-d H:i:s", time());
-
-            $hashing = md5($password);
-
-            $sql = "INSERT INTO seller (shop_name, name, mobile, password, shop_description, shop_images, address, city, state, pincode, country, created_at) VALUES (:shopName, :name, :mobile, :password, :shopDescription, :shopImages, :address, :city, :state, :pincode, :country, :createdAt)";
-
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['shopName' => $shopName, 'name' => $name, 'mobile' => $mobile, 'password' => $hashing, 'shopDescription' => $shopDescription, 'shopImages' => $shopImages, 'address' => $address, 'city' => $city, 'state' => $state, 'pincode' => $pincode, 'country' => $country, 'createdAt' => $createdAt]);
-            return true;
-        }
-        //To upload 3 shop images
-        public function shopImage($shopImages, $i, $newfilename)
-        {
-            $fileName  =  $newfilename;
-            $tempPath  =  $shopImages['tmp_name'][$i];
-            $fileSize  =  $shopImages['size'][$i];
-            $upload_path = 'shops/'; // set upload folder path 
-            $fileExt = strtolower(pathinfo($fileName,PATHINFO_EXTENSION)); // get image extension
-            
-            // valid image extensions
-            $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); 
-            // allow valid image file formats
-            if ($shopImages["error"][$i] > 0)
-            {
-                $errorMSG = json_encode(array("message" => $shopImages["error"][$i], "error" => false));   
-                echo $errorMSG;
-                exit; 
-            }
-    
-            if(in_array($fileExt, $valid_extensions))
-            {
-                // check file size '50MB'
-                if($fileSize < 50000000)
-                {
-                    move_uploaded_file($tempPath, $upload_path . $fileName); // move file from system temporary path to our upload folder path 
-                }
-                else
-                {       
-                    $errorMSG = json_encode(array("message" => "Sorry, your file is too large, please upload below 50 MB size", "error" => false));   
-                    echo $errorMSG;
-                    exit;
-                }               
-            }
-            else
-            {       
-                $errorMSG = json_encode(array("message" => "Sorry, only JPG, JPEG, PNG & GIF files are allowed", "error" => false));   
-                echo $errorMSG;
-                exit;   
-            }            
-        }
-
-        //To login user
-        public function loginSeller($mobile, $password)
-        {
-            $hashing = md5($password);
-
-            $sql = "SELECT id, mobile, name FROM seller WHERE mobile = '".$mobile."' AND password = '".$hashing."'";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute();
-            return $stmt->fetch();
-        }
-
-        //To edit Seller's profile
-        public function updateSellerProfile($shopName, $name, $mobile, $password, $email, $shopDescription, $shopImages, $address, $city, $state, $pincode, $country, $delivery)
-        {
-            date_default_timezone_set('Asia/Kolkata');
-            $updatedAt = date("Y-m-d H:i:s", time());
-
-            $hashing = md5($password);
-
-            $sql = "UPDATE seller SET shop_name = :shopName, name = :name, password = :password, email = :email, shop_description = :shopDescription, shop_images = :shopImages, address = :address, city = :city, state = :state, pincode = :pincode, country = :country, delivery = :delivery, updated_at = :updatedAt WHERE mobile = :mobile";
-
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['shopName' => $shopName, 'name' => $name, 'mobile' => $mobile, 'password' => $hashing, 'email' => $email, 'shopDescription' => $shopDescription, 'shopImages' => $shopImages, 'address' => $address, 'city' => $city, 'state' => $state, 'pincode' => $pincode, 'country' => $country, 'delivery' => $delivery, 'updatedAt' => $updatedAt]);
-            return true;
-        } 
-
-
-        //To check an exists Customer
-        public function existCustomer($mobile)
-        {
-            $sql = "SELECT mobile FROM customer WHERE mobile = :mobile";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['mobile' => $mobile]);
-            return $stmt->fetch();
-        }        
-        //To register new customer
-        public function registerCustomer($name, $mobile, $password, $address, $city, $state, $pincode, $country)
-        {
-            date_default_timezone_set('Asia/Kolkata');
-            $createdAt = date("Y-m-d H:i:s", time());
-
-            $hashing = md5($password);
-
-            $sql = "INSERT INTO customer (name, mobile, password, address, city, state, pincode, country, created_at) VALUES (:name, :mobile, :password, :address, :city, :state, :pincode, :country, :createdAt)";
-
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['name' => $name, 'mobile' => $mobile, 'password' => $hashing, 'address' => $address, 'city' => $city, 'state' => $state, 'pincode' => $pincode, 'country' => $country, 'createdAt' => $createdAt]);
-            return true;
-        }
- 
-        //To login customer profile
-        public function loginCustomer($mobile, $password)
-        {
-            $hashing = md5($password);
-
-            $sql = "SELECT id, mobile, name FROM customer WHERE mobile = '".$mobile."' AND password = '".$hashing."'";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute();
-            return $stmt->fetch();
-        }
-
-        //To edit Customer's profile
-        public function updateCustomerProfile($name, $mobile, $password, $email, $address, $city, $state, $pincode, $country, $delivery)
-        {
-            date_default_timezone_set('Asia/Kolkata');
-            $updatedAt = date("Y-m-d H:i:s", time());
-
-            $hashing = md5($password);
-
-            $sql = "UPDATE customer SET name = :name, password = :password, email = :email, address = :address, city = :city, state = :state, pincode = :pincode, country = :country, delivery = :delivery, updated_at = :updatedAt WHERE mobile = :mobile";
-
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['name' => $name, 'mobile' => $mobile, 'password' => $hashing, 'email' => $email, 'address' => $address, 'city' => $city, 'state' => $state, 'pincode' => $pincode, 'country' => $country, 'delivery' => $delivery, 'updatedAt' => $updatedAt]);
-            return true;
-        }                 
-
-     /*--------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY------------------------------------------PRODUCTS DETAIL ONLY----------------*/        
-
+    {      
         //To insert product details
         public function insertProduct($sellerId, $productName, $productQty, $productPrice, $productDescription, $productImage, $productCategory, $soldOut, $discountAvailable, $productDiscountPrice, $productDiscountNote)
         {
@@ -214,7 +73,6 @@
             return $stmt->fetchAll();
         }
 
-
         //To get category and discount products
         public function getDiscountCategoryProducts($productCategory, $discountAvailable)
         {
@@ -261,13 +119,21 @@
         //To fetch place ordered list
         public function orderList($customerId)
         {
-            $sql = "SELECT id AS orderId, order_cost AS orderCost, order_status AS orderStatus, CONCAT(date(created_at),     LOWER(DATE_FORMAT(created_at, ' %h:%i %p'))) AS orderTime, pay_option AS paymentOption FROM orders_placed WHERE customer_id = :customerId";
+            $sql = "SELECT id AS orderId, order_cost AS orderCost, order_status AS orderStatus, CONCAT(date(created_at), LOWER(DATE_FORMAT(created_at, ' %h:%i %p'))) AS orderTime, pay_option AS paymentOption FROM orders_placed WHERE customer_id = :customerId";
 
             $stmt = $this->conn->prepare($sql);
             $stmt->execute(['customerId' => $customerId]);
             return $stmt->fetchAll();
         }
 
+        //To fetch order status list
+        public function statusList()
+        {
+            $sql = "SELECT id AS statusId, order_status AS orderStatus FROM status_list";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
 
         //To fetch detailed order
         public function fetchOrderedProducts($orderId)
@@ -285,18 +151,242 @@
             $stmt->execute(['orderId' => $orderId, 'customerId' => $customerId]);
             return $stmt->fetch();
         }
-
-
-        function object($array) 
+        public function object($array) 
         {
             $object = new stdClass();
-
             foreach ($array as $k => $v) 
             {
                 $object->$k = $v;
             }
             return $object;
         }
+
+        //To insert which delivery man is gonna to deliver the orders
+        public function ordersDeliverBy($orderId, $carrierId)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $createdAt = date("Y-m-d H:i:s", time());
+
+            $sql = "INSERT INTO order_deliver_by (order_id, carrier_id, created_at) VALUES (:orderId, :carrierId, :createdAt)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['orderId' => $orderId, 'carrierId' => $carrierId, 'createdAt' => $createdAt]);
+            return true;
+        }
+
+        //To display only delivered order details
+        public function getDeliveredOrder()
+        {
+            $sql = "SELECT op.id AS orderId, CONCAT (ds.first_name,' ',ds.second_name) AS deliveredBy, op.order_cost AS orderCost FROM order_deliver_by odb 
+            INNER JOIN orders_placed op ON odb.order_id = op.id
+            INNER JOIN delivery_service ds ON odb.carrier_id = ds.id WHERE op.order_status = '7'";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
+
+        //To add data in main category table
+        public function addMainCategory($sellerId, $mainCategory)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $createdAt = date("Y-m-d H:i:s", time());
+
+            $sql = "INSERT INTO main_category (seller_id, main_category, created_at) VALUES (:sellerId, :mainCategory, :createdAt)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId, 'mainCategory' => $mainCategory, 'createdAt' => $createdAt]);
+            $id = $this->conn->lastInsertId();
+            return $id;
+        }
+        //To add data in sub category table
+        public function addSubCategory($sellerId, $mainId, $subCategory)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $createdAt = date("Y-m-d H:i:s", time());
+
+            $sql = "INSERT INTO sub_category (seller_id, main_id, sub_category, created_at) VALUES (:sellerId, :mainId, :subCategory, :createdAt)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId, 'mainId' => $mainId, 'subCategory' => $subCategory, 'createdAt' => $createdAt]);
+            return true;
+        }
+
+        //To get delivery time
+        public function deliveryTimeId($sellerId)
+        {
+            $sql = "SELECT seller_id FROM delivery_time WHERE seller_id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId]);
+            return $stmt->fetch();
+        }
+        //To add delivery time
+        public function addDeliveryTime($sellerId, $startTime, $endTime, $thresholdTime, $versionNumber)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $createdAt = date("Y-m-d H:i:s", time());
+
+            $sql = "INSERT INTO delivery_time (seller_id, start_time, end_time, threshold_time, version_number, created_at) VALUES (:sellerId, :startTime, :endTime, :thresholdTime, :versionNumber, :createdAt)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId, 'startTime' => $startTime, 'endTime' => $endTime, 'thresholdTime' => $thresholdTime, 'versionNumber' => $versionNumber, 'createdAt' => $createdAt]);
+            return true;
+        }
+        //To update delivery time
+        public function updateDeliveryTime($sellerId, $startTime, $endTime, $thresholdTime, $versionNumber)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $updatedAt = date("Y-m-d H:i:s", time());
+
+            $sql = "UPDATE delivery_time SET start_time = :startTime, end_time = :endTime, threshold_time = :thresholdTime, version_number = :versionNumber, updated_at = :updatedAt WHERE seller_id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId, 'startTime' => $startTime, 'endTime' => $endTime, 'thresholdTime' => $thresholdTime, 'versionNumber' => $versionNumber, 'updatedAt' => $updatedAt]);
+            return true;
+        }
+
+        //To get delivery time
+        public function getDeliveryTime($sellerId)
+        {
+            $sql = "SELECT seller_id AS sellerId, start_time AS startTime, end_time AS endTime, threshold_time AS thresholdTime, version_number AS versionNumber FROM delivery_time WHERE seller_id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId]);
+            return $stmt->fetch();
+        }
+
+        //To add promotion code
+        public function addPromotionCode($sellerId, $promoCode, $promoDescription, $promoPrice, $promoMinimumPrice, $promoExpiryDate)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $createdAt = date("Y-m-d H:i:s", time());
+
+            $sql = "INSERT INTO promotion_codes (seller_id, promo_code, promo_description, promo_price, promo_minimum_price, promo_expiry_date, created_at) VALUES (:sellerId, :promoCode, :promoDescription, :promoPrice, :promoMinimumPrice, :promoExpiryDate, :createdAt)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId, 'promoCode' => $promoCode, 'promoDescription' => $promoDescription, 'promoPrice' => $promoPrice, 'promoMinimumPrice' => $promoMinimumPrice, 'promoExpiryDate' => $promoExpiryDate, 'createdAt' => $createdAt]);
+            return true;
+        }
+
+        //To get promotion code by seller id 
+        public function getPromotionCodeBySellerId($sellerId)
+        {
+            $sql = "SELECT id AS promoId, promo_code AS promoCode, promo_description AS promoDescription, promo_price AS promoPrice, promo_minimum_price  AS promoMinimumPrice, promo_expiry_date AS promoExpiryDate FROM promotion_codes WHERE seller_id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId]);
+            return $stmt->fetchAll();
+        }
+
+        //To get promotion code by promo id
+        public function getPromotionCodeByPromoId($promoId)
+        {
+            $sql = "SELECT id AS promoId, promo_code AS promoCode, promo_description AS promoDescription, promo_price AS promoPrice, promo_minimum_price  AS promoMinimumPrice, promo_expiry_date AS promoExpiryDate FROM promotion_codes WHERE id = :promoId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['promoId' => $promoId]);
+            return $stmt->fetchAll();
+        }
+
+        //To update promotion code by promo id
+        public function updatePromotionCode($promoId, $promoCode, $promoDescription, $promoPrice, $promoMinimumPrice, $promoExpiryDate)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $updatedAt = date("Y-m-d H:i:s", time());
+            
+            $sql = "UPDATE promotion_codes SET promo_code = :promoCode, promo_description = :promoDescription, promo_price = :promoPrice, promo_minimum_price  = :promoMinimumPrice, promo_expiry_date = :promoExpiryDate, updated_at = :updatedAt WHERE id = :promoId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['promoId' => $promoId, 'promoCode' => $promoCode, 'promoDescription' => $promoDescription, 'promoPrice' => $promoPrice, 'promoMinimumPrice' => $promoMinimumPrice, 'promoExpiryDate' => $promoExpiryDate, 'updatedAt' => $updatedAt]);
+            return true;
+        }
+
+        //To delete promotion code
+        public function deletePromotionCode($promoId)
+        {
+            $sql = "DELETE FROM promotion_codes WHERE id = :promoId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['promoId' => $promoId]);
+            return true;
+        }
+
+        //To select seller id from promotion offers table
+        public function getSellerId($sellerId)
+        {
+            $sql = "SELECT id FROM seller WHERE id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId]);
+            return $stmt->fetch();
+        }
+        //To select seller id from promotion offers table
+        public function getPromotionOfferSellerId($sellerId)
+        {
+            $sql = "SELECT seller_id FROM promotion_offers WHERE seller_id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId]);
+            return $stmt->fetch();
+        }
+        //To add promotion offers
+        public function addPromotionOffers($sellerId, $offerPrice, $offerText, $offerStatus)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $createdAt = date("Y-m-d H:i:s", time());
+
+            $sql = "INSERT INTO promotion_offers (seller_id, offer_price, offer_text, offer_status, created_at) VALUES (:sellerId, :offerPrice, :offerText, :offerStatus, :createdAt)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId, 'offerPrice' => $offerPrice, 'offerText' => $offerText, 'offerStatus' => $offerStatus, 'createdAt' => $createdAt]);
+            return true;
+        }
+        //To update promotion offers
+        public function updatePromotionOffers($sellerId, $offerPrice, $offerText, $offerStatus)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $updatedAt = date("Y-m-d H:i:s", time());
+
+            $sql = "UPDATE promotion_offers SET offer_price = :offerPrice, offer_text = :offerText, offer_status = :offerStatus, updated_at = :updatedAt WHERE seller_id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId, 'offerPrice' => $offerPrice, 'offerText' => $offerText, 'offerStatus' => $offerStatus, 'updatedAt' => $updatedAt]);
+            return true;
+        }
+        //To get promotion offers 
+        public function getPromotionOffer($sellerId)
+        {
+            $sql = "SELECT seller_id AS sellerId, offer_price AS offerPrice, offer_text AS offerText, offer_status AS offerStatus FROM promotion_offers WHERE seller_id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId]);
+            return $stmt->fetch();
+        }
+
+
+        //To select seller id from promotion offers table
+        public function getFirstPromotionOfferSellerId($sellerId)
+        {
+            $sql = "SELECT seller_id FROM first_promo_offer WHERE seller_id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId]);
+            return $stmt->fetch();
+        }
+        //To add promotion offers
+        public function addFirstPromotionOffers($sellerId, $firstOfferText, $firstOfferStatus)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $createdAt = date("Y-m-d H:i:s", time());
+
+            $sql = "INSERT INTO first_promo_offer (seller_id, offer_text, offer_status, created_at) VALUES (:sellerId, :firstOfferText, :firstOfferStatus, :createdAt)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId, 'firstOfferText' => $firstOfferText, 'firstOfferStatus' => $firstOfferStatus, 'createdAt' => $createdAt]);
+            return true;
+        }
+        //To update promotion offers
+        public function updateFirstPromotionOffers($sellerId, $firstOfferText, $firstOfferStatus)
+        {
+            date_default_timezone_set('Asia/Kolkata');
+            $updatedAt = date("Y-m-d H:i:s", time());
+
+            $sql = "UPDATE first_promo_offer SET offer_text = :firstOfferText, offer_status = :firstOfferStatus, updated_at = :updatedAt WHERE seller_id = :sellerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId, 'firstOfferText' => $firstOfferText, 'firstOfferStatus' => $firstOfferStatus, 'updatedAt' => $updatedAt]);
+            return true;
+        }
+        //To get first time promo offer text
+        public function getFirstPromotionOffer($sellerId)
+        {
+            $sql = "SELECT seller_id AS sellerId, offer_text AS firstOfferText, offer_status AS firstOfferStatus FROM first_promo_offer";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId]);
+            return $stmt->fetch();
+        }
+
     }
 ?>
 
