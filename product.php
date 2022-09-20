@@ -40,7 +40,7 @@
     //To insert product details
     if ($method == 'POST' && $link == "products")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $sellerId = $product->test_input($_POST['sellerId']);
         $productName = $product->test_input($_POST['productName']); 
@@ -54,10 +54,10 @@
         $productDiscountPrice = $product->test_input($_POST['productDiscountPrice']);
         $productDiscountNote = $product->test_input($_POST['productDiscountNote']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 $newfilename = '';
                 if (!empty($productImage)) 
                 {
@@ -68,29 +68,36 @@
         
                 if ($sellerId && $productName && $productQty && $productPrice && $productDescription && $productCategory != null)
                 {
-                    if ($product->insertProduct($sellerId, $productName, $productQty, $productPrice, $productDescription, $productImage, $productCategory, $soldOut, $discountAvailable, $productDiscountPrice, $productDiscountNote))
+                    if ($product->productCategoryId($productCategory))
                     {
-                        echo $product->message('Product added successfully', false);
+                        if ($product->insertProduct($sellerId, $productName, $productQty, $productPrice, $productDescription, $newfilename, $productCategory, $soldOut, $discountAvailable, $productDiscountPrice, $productDiscountNote))
+                        {
+                            echo $product->message('Product added successfully', false);
+                        }
+                        else
+                        {
+                            echo $product->message('Failed to add product', true);
+                        }
                     }
                     else
                     {
-                        echo $product->message('Failed to add product', true);
+                        echo $product->message('Please enter valid id in product category field to add products', true);
                     }
                 }
                 else
                 {
                     echo $product->message('Please fill required data to add product', true);
                 }            
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter an valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter an valid app key', true);
+        }
     }
 
 
@@ -99,10 +106,10 @@
     {
         $app_key = intval($headers['app_key'] ?? '');
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($productDetails = $product->getAllProducts())
                 {
                     echo $product->message('Product details found', false, $productDetails);
@@ -111,31 +118,68 @@
                 {
                     echo json_encode(['message' => 'No product details found', 'error' => true, 'data' => []]);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
+    }
+
+    //To get all product details by sellerId
+    if ($method == 'POST' && $link == "getallproducts")
+    {
+        $app_key = intval($headers['app_key'] ?? '');
+        $sellerId = $product->test_input($_POST['sellerId']);
+
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
+                if ($sellerId != null)
+                {
+                    if ($productDetails = $product->getProducts($sellerId))
+                    {
+                        echo $product->message('Product details found', false, $productDetails);
+                    }
+                    else
+                    {
+                        echo json_encode(['message' => 'No product details found', 'error' => true, 'data' => []]);
+                    }
+                }
+                else
+                {
+                    echo $product->message('Enter a valid seller id to list products', false);
+                }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
 
     //To get category and discount products
     if ($method == 'POST' && $link == "categorydiscountproducts")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $productCategory = $product->test_input($_POST['productCategory']);
         $discountAvailable = $product->test_input($_POST['discountAvailable']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($productCategory || $discountAvailable != null)
                 {
                     if ($productDetails = $product->getDiscountCategoryProducts($productCategory, $discountAvailable))
@@ -151,33 +195,33 @@
                 {
                     echo $product->message('Please fill any one column', false);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     
     //To search products
     if ($method == 'POST' && $link == "searchproducts")
     {
-       // $app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $productCategory = $product->test_input($_POST['productCategory']);
         $productDescription = $product->test_input($_POST['productDescription']);
         $productName = $product->test_input($_POST['productName']);
         $productDiscountNote = $product->test_input($_POST['productDiscountNote']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($productCategory && $productDescription && $productName != null)
                 {
                     if ($productDetails = $product->searchProducts($productCategory, $productDescription, $productName, $productDiscountNote))
@@ -193,22 +237,22 @@
                 {
                     echo $product->message('Please fill all the fields', false);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
     
     //To place orders
     if ($method == 'POST' && $link == "placeorders")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $items = json_decode($_POST['items']);
         $customerId = $product->test_input($_POST['customerId']);
@@ -217,50 +261,56 @@
         $deliveryTime = $product->test_input($_POST['deliveryTime']);
         $firstPromoOffer = $product->test_input($_POST['firstPromoOffer']);
         $orderCost = $product->test_input($_POST['orderCost']);
-        $orderStatus = $product->test_input($_POST['orderStatus']);
         $paymentOption = $product->test_input($_POST['paymentOption']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
-                if ($items && $customerId && $deliveryFee && $deliveryOption && $deliveryTime && $orderCost && $orderStatus && $paymentOption != null)
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
+                if ($items && $customerId && $deliveryFee && $deliveryOption && $deliveryTime && $orderCost && $paymentOption != null)
                 {
-                    if ($id = $product->orderedProductDetails($customerId, $deliveryFee, $deliveryOption, $deliveryTime, $firstPromoOffer, $orderCost, $orderStatus, $paymentOption))
+                    if ($product->getCustomerId($customerId))
                     {
-                        foreach ($items as $key => $value)
+                        if ($id = $product->orderedProductDetails($customerId, $deliveryFee, $deliveryOption, $deliveryTime, $firstPromoOffer, $orderCost, $paymentOption))
                         {
-                            $i = $key;
-                            $productId = $value->productId;
-                            $productName = $value->productName;
-                            $productQty = $value->productQty;
-                            $productPrice = $value->productPrice;
-                            $orderedQty = $value->orderedQty;
-            
-                            $product->orderedProductLists($id, $productId, $productName, $productQty, $productPrice, $orderedQty);
-                            
+                            foreach ($items as $key => $value)
+                            {
+                                $i = $key;
+                                $productId = $value->productId;
+                                $productName = $value->productName;
+                                $productQty = $value->productQty;
+                                $productPrice = $value->productPrice;
+                                $orderedQty = $value->orderedQty;
+                
+                                $product->orderedProductLists($id, $productId, $productName, $productQty, $productPrice, $orderedQty);
+                                
+                            }
+                            echo json_encode(['message' => 'Order placed successfully', 'error' => false, 'orderId' => $id]);
                         }
-                        echo json_encode(['message' => 'Order placed successfully', 'error' => false, 'orderId' => $id]);
+                        else
+                        {
+                            echo $product->message('Failed to place order', true);
+                        }
                     }
                     else
                     {
-                        echo $product->message('Failed to place order', true);
+                        echo $product->message('Enter valid customer id to place order', true);
                     }
                 }
                 else
                 {
                     echo $product->message('Please fill all the details', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To fetch place ordered list
@@ -270,10 +320,10 @@
 
         $customerId = $product->test_input($_POST['customerId']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($customerId != null)
                 {
                     if ($orderlist = $product->orderList($customerId))
@@ -289,16 +339,16 @@
                 {
                     echo $product->message('Please enter a valid customer id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }  
     
     //To fetch order status list
@@ -306,10 +356,10 @@
     {
         $app_key = intval($headers['app_key'] ?? '');
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($productDetails = $product->statusList())
                 {
                     echo $product->message('Order status list found', false, $productDetails);
@@ -318,16 +368,16 @@
                 {
                     echo json_encode(['message' => 'No order status list found', 'error' => true, 'data' => []]);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
     
     //To fetch detailed order
@@ -338,10 +388,10 @@
         $customerId = $product->test_input($_POST['customerId']);
         $orderId = $product->test_input($_POST['orderId']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($customerId && $orderId != null)
                 {
                     $orders = $product->fetchOrderedProducts($orderId);
@@ -360,30 +410,30 @@
                 {
                     echo $product->message('Please enter a valid customer id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To insert which delivery man is gonna to deliver the orders
     if ($method == 'POST' && $link == "add-deliverperson")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $orderId = $product->test_input($_POST['orderId']);
         $carrierId = $product->test_input($_POST['carrierId']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($orderId && $carrierId != null)
                 {
                     if ($product->ordersDeliverBy($orderId, $carrierId))
@@ -399,16 +449,16 @@
                 {
                     echo $product->message('Please enter a valid customer id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To display only delivered order details
@@ -416,10 +466,10 @@
     {
         $app_key = intval($headers['app_key'] ?? '');
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($deliveredOrder = $product->getDeliveredOrder())
                 {
                     echo $product->message('Delivered order found', false, $deliveredOrder);
@@ -428,32 +478,32 @@
                 {
                     echo json_encode(['message' => 'No delivered order found', 'error' => true, 'data' => []]);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
 
     //To add data in category screen
     if ($method == 'POST' && $link == "addcategory")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $sellerId = $product->test_input($_POST['sellerId']);
         $mainCategory = $product->test_input($_POST['mainCategory']);
         $subCategory = $product->test_input($_POST['subCategory']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId && $mainCategory && $subCategory != null)
                 {
                     if ($mainId = $product->addMainCategory($sellerId, $mainCategory))
@@ -470,22 +520,22 @@
                 {
                     echo $product->message('Please enter a valid customer id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To add time in delivery time configuration screen
     if ($method == 'POST' && $link == "add-deliverytime")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $sellerId = $product->test_input($_POST['sellerId']);
         $startTime = $product->test_input($_POST['startTime']);
@@ -493,10 +543,10 @@
         $thresholdTime = $product->test_input($_POST['thresholdTime']);
         $versionNumber = $product->test_input($_POST['versionNumber']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId && $startTime && $endTime && $thresholdTime != null)
                 {
                     if (!$product->deliveryTimeId($sellerId))
@@ -518,16 +568,16 @@
                 {
                     echo $product->message('Please enter all fields', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To display only delivered order details
@@ -537,10 +587,10 @@
 
         $sellerId = $product->test_input($_POST['sellerId']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId != null)
                 {
                     if ($deliveryTime = $product->getDeliveryTime($sellerId))
@@ -556,22 +606,22 @@
                 {
                     echo $product->message('Please enter a valid seller id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To add promotion code
     if ($method == 'POST' && $link == "add-promotioncode")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $sellerId = $product->test_input($_POST['sellerId']);
         $promoCode = $product->test_input($_POST['promoCode']);
@@ -580,10 +630,10 @@
         $promoMinimumPrice = $product->test_input($_POST['promoMinimumPrice']);
         $promoExpiryDate = $product->test_input($_POST['promoExpiryDate']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId && $promoCode && $promoDescription && $promoPrice && $promoMinimumPrice && $promoExpiryDate != null)
                 {
                     if ($product->addPromotionCode($sellerId, $promoCode, $promoDescription, $promoPrice, $promoMinimumPrice, $promoExpiryDate))
@@ -599,16 +649,16 @@
                 {
                     echo $product->message('Please enter all the fields to add promotion code', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To get promotion code by seller id
@@ -618,10 +668,10 @@
 
         $sellerId = $product->test_input($_POST['sellerId']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId != null)
                 {
                     if ($promotionCode = $product->getPromotionCodeBySellerId($sellerId))
@@ -637,16 +687,16 @@
                 {
                     echo $product->message('Please enter a valid seller id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To get promotion code by promo id
@@ -656,10 +706,10 @@
 
         $promoId = $product->test_input($_POST['promoId']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($promoId != null)
                 {
                     if ($promotionCode = $product->getPromotionCodeByPromoId($promoId))
@@ -675,16 +725,16 @@
                 {
                     echo $product->message('Please enter a valid promo id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To delete promotion code
@@ -694,10 +744,10 @@
 
         $promoId = $product->test_input($_POST['promoId']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($promoId != null)
                 {
                     if ($product->deletePromotionCode($promoId))
@@ -713,22 +763,22 @@
                 {
                     echo $product->message('Please enter a valid promo id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To update promotion code
     if ($method == 'POST' && $link == "update-promotioncode")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $promoId = $product->test_input($_POST['promoId']);
         $promoCode = $product->test_input($_POST['promoCode']);
@@ -737,10 +787,10 @@
         $promoMinimumPrice = $product->test_input($_POST['promoMinimumPrice']);
         $promoExpiryDate = $product->test_input($_POST['promoExpiryDate']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($promoId != null)
                 {
                     if ($product->updatePromotionCode($promoId, $promoCode, $promoDescription, $promoPrice, $promoMinimumPrice, $promoExpiryDate))
@@ -756,32 +806,32 @@
                 {
                     echo $product->message('Please enter valid promo id to update promotion code', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To add promotion offer
     if ($method == 'POST' && $link == "add-promotionoffer")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $sellerId = $product->test_input($_POST['sellerId']);
         $offerPrice = $product->test_input($_POST['offerPrice']);
         $offerText = $product->test_input($_POST['offerText']);
         $offerStatus = $product->test_input($_POST['offerStatus']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId && $offerPrice && $offerText && $offerStatus != null)
                 {
                     if ($product->getSellerId($sellerId))
@@ -818,16 +868,16 @@
                 {
                     echo $product->message('Please enter all the fields to add promotion offer', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To get promotion offer by seller id
@@ -837,10 +887,10 @@
 
         $sellerId = $product->test_input($_POST['sellerId']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId != null)
                 {
                     if ($promotionOffer = $product->getPromotionOffer($sellerId))
@@ -856,31 +906,31 @@
                 {
                     echo $product->message('Please enter a valid seller id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To add promotion offer
     if ($method == 'POST' && $link == "add-firstpromotionoffer")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
 
         $sellerId = $product->test_input($_POST['sellerId']);
         $firstOfferText = $product->test_input($_POST['firstOfferText']);
         $firstOfferStatus = $product->test_input($_POST['firstOfferStatus']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId && $firstOfferText && $firstOfferStatus != null)
                 {
                     if ($product->getSellerId($sellerId))
@@ -917,16 +967,16 @@
                 {
                     echo $product->message('Please enter all the fields to add first promotion offer', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To get first time promo offer text
@@ -936,10 +986,10 @@
 
         $sellerId = $product->test_input($_POST['sellerId']);     
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId != null)
                 {
                     if ($promoOffer = $product->getFirstPromotionOffer($sellerId))
@@ -955,16 +1005,16 @@
                 {
                     echo $product->message('Please enter a valid seller id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 ?>
 

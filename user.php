@@ -114,10 +114,10 @@
         $sellerId = $user->test_input($_POST['sellerId']);
         $pushNotification = $user->test_input($_POST['pushNotification']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId && $pushNotification != null)
                 {
                     if ($user->pushNotifications($sellerId, $pushNotification))
@@ -140,16 +140,16 @@
                 {
                     echo $user->message('Please enter all the fields', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter an valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter an valid app key', true);
+        }
     }
 
     //To update seller's profile
@@ -207,16 +207,16 @@
     //To add UPI details of seller
     if ($method == 'POST' && $link == "add-sellerupi")
     {
-        //$app_key = intval($headers['app_key'] ?? '');
+        $app_key = intval($headers['app_key'] ?? '');
         
         $sellerId = $user->test_input($_POST['sellerId']);
         $upiId = $user->test_input($_POST['upiId']);
         $upiName = $user->test_input($_POST['upiName']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId && $upiId && $upiName != null)
                 {
                     if ($user->addSellerUPI($sellerId, $upiId, $upiName))
@@ -232,16 +232,16 @@
                 {
                     echo $user->message('Fill all the details', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter an valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter an valid app key', true);
+        }
     }
 
     //To register new seller
@@ -255,14 +255,22 @@
         $state = $user->test_input($_POST['state']);
         $pincode = $user->test_input(($_POST['pincode']));
         $country = $user->test_input($_POST['country']);
+        $customerImage = ($_FILES['customerImage']['name']);
 
         if ($name && $mobile && $password && $address && $city && $state && $pincode && $country != null)
         {
+            $newfilename = '';
+            if (!empty($customerImage)) 
+            {
+                $temp = explode(".", $customerImage);
+                $newfilename = $temp[0]."-".round(microtime(true)) . '.' . end($temp);
+                $data = $user->customerImage($_FILES['customerImage'], $newfilename);
+            }
             if ($user->existCustomer($mobile))
             {
                 echo $user->message('Mobile number exists already', true);
             }
-            elseif ($user->registerCustomer($name, $mobile, $password, $address, $city, $state, $pincode, $country))
+            elseif ($user->registerCustomer($name, $mobile, $password, $address, $city, $state, $pincode, $country, $newfilename))
             {
                 echo $user->message('Registered successfully', false);
             }
@@ -315,10 +323,19 @@
         $pincode = $user->test_input($_POST['pincode']);
         $country = $user->test_input($_POST['country']);
         $delivery = $user->test_input($_POST['delivery']);
+        $customerImage = ($_FILES['customerImage']['name']);
 
         if ($name && $mobile && $password && $address && $city && $state && $pincode && $country != null)
         {
-            if ($user->updateCustomerProfile($name, $mobile, $password, $email, $address, $city, $state, $pincode, $country, $delivery))
+            $newfilename = '';
+            if (!empty($customerImage)) 
+            {
+                $temp = explode(".", $customerImage);
+                $newfilename = $temp[0]."-".round(microtime(true)) . '.' . end($temp);
+                $data = $user->customerImage($_FILES['customerImage'], $newfilename);
+            }
+
+            if ($user->updateCustomerProfile($name, $mobile, $password, $email, $address, $city, $state, $pincode, $country, $delivery, $newfilename))
             {
                 echo $user->message('Profile updated successfully', false);
             }
@@ -402,10 +419,10 @@
         $mobile = $user->test_input($_POST['mobile']);
         $password = $user->test_input($_POST['password']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($mobile && $password != null)
                 {
                     if ($login = $user->loginCarrier($mobile, $password))
@@ -421,16 +438,16 @@
                 {
                     echo $user->message('Please enter a valid mobile number and password to log in', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter an valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter an valid app key', true);
+        }
     }
 
     //To update delivery boy's details
@@ -494,10 +511,10 @@
     {
         $app_key = intval($headers['app_key'] ?? '');
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($bugcategory = $user->getBugCategory())
                 {
                     echo $user->message('Bug category list found', false, $bugcategory);
@@ -506,16 +523,16 @@
                 {
                     echo json_encode(['message' => 'No bug category list found', 'error' => true, 'data' => []]);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To add customer query or bugs
@@ -532,10 +549,10 @@
         $bugCategory = $user->test_input($_POST['bugCategory']);
         $query = $user->test_input($_POST['query']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId && $customerId && $customerName && $customerMail && $customerNumber && $query != null)
                 {
                     if ($login = $user->addQueries($sellerId, $customerId, $customerName, $customerMail, $customerNumber, $shopName, $bugCategory, $query))
@@ -551,16 +568,16 @@
                 {
                     echo $user->message('Fill all the details', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter an valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter an valid app key', true);
+        }
     }
 
     //To get customer query list
@@ -570,10 +587,10 @@
 
         $sellerId = $user->test_input($_POST['sellerId']);
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($sellerId != null)
                 {
                     if ($queries = $user->getQueries($sellerId))
@@ -589,16 +606,16 @@
                 {
                     echo $user->message('Please enter valid seller id', true);
                 } 
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
     //To add reviews and ratings
@@ -608,12 +625,12 @@
 
         $customerId = $user->test_input($_POST['customerId']);
         $rating = $user->test_input($_POST['rating']);
-        $reviews = $user->test_input($_POST['reviews']);
+        $reviews = $user->test_input($_POST['reviews']); 
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($customerId != null)
                 {
                     if ($user->getCustomerId($customerId))
@@ -643,16 +660,16 @@
                 {
                     echo $user->message('Please enter a valid customer id', true);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter an valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter an valid app key', true);
+        }
     }
 
 
@@ -661,10 +678,10 @@
     {
         $app_key = intval($headers['app_key'] ?? '');
 
-        // if ($app_key != null)
-        // {
-        //     if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
-        //     {
+        if ($app_key != null)
+        {
+            if ($app_key == "655f636f6d6d657263655f6d6f62696c65")
+            {
                 if ($feedback = $user->getFeedback())
                 {
                     echo $user->message('Ratings and reviews are found', false, $feedback);
@@ -673,16 +690,16 @@
                 {
                     echo json_encode(['message' => 'No ratings and reviews are found', 'error' => true, 'data' => []]);
                 }
-        //     }
-        //     else
-        //     {
-        //         echo $product->message('Please verify your app key', true);
-        //     }
-        // }
-        // else
-        // {
-        //     echo $product->message('Enter a valid app key', true);
-        // }
+            }
+            else
+            {
+                echo $product->message('Please verify your app key', true);
+            }
+        }
+        else
+        {
+            echo $product->message('Enter a valid app key', true);
+        }
     }
 
 ?>

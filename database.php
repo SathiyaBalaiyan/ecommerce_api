@@ -7,7 +7,15 @@
     include_once 'config.php';
 
     class Database extends Config
-    {      
+    {
+        //To select product category id from sub category table
+        public function productCategoryId($productCategory)
+        {
+            $sql = "SELECT id FROM sub_category WHERE id = :productCategory";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['productCategory' => $productCategory]);
+            return $stmt->fetch();
+        }      
         //To insert product details
         public function insertProduct($sellerId, $productName, $productQty, $productPrice, $productDescription, $productImage, $productCategory, $soldOut, $discountAvailable, $productDiscountPrice, $productDiscountNote)
         {
@@ -66,10 +74,19 @@
         //To get all product details
         public function getAllProducts()
         {
-            $sql = "SELECT id AS productId, seller_id AS sellerId, product_name AS productName, product_qty AS productQty, product_price AS productPrice, product_description AS productDescription, product_image AS productImage, product_category AS productCategory, soldout AS SoldOut, discount_available AS discountAvailable, product_discount_price AS productDiscountPrice, product_discount_note AS productDiscountNote FROM products";
+            $sql = "SELECT p.id AS productId, seller_id AS sellerId, s.shop_name AS shopName, product_name AS productName, product_qty AS productQty, product_price AS productPrice, product_description AS productDescription, product_image AS productImage, product_category AS productCategory, soldout AS SoldOut, discount_available AS discountAvailable, product_discount_price AS productDiscountPrice, product_discount_note AS productDiscountNote FROM products p INNER JOIN seller s ON p.seller_id = s.id";
 
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
+            return $stmt->fetchAll();
+        }
+        //To get all product details by sellerId
+        public function getProducts($sellerId)
+        {
+            $sql = "SELECT p.id AS productId, seller_id AS sellerId, s.shop_name AS shopName, product_name AS productName, product_qty AS productQty, product_price AS productPrice, product_description AS productDescription, product_image AS productImage, product_category AS productCategory, soldout AS SoldOut, discount_available AS discountAvailable, product_discount_price AS productDiscountPrice, product_discount_note AS productDiscountNote FROM products p INNER JOIN seller s ON p.seller_id = s.id WHERE p.seller_id = :sellerId";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sellerId' => $sellerId]);
             return $stmt->fetchAll();
         }
 
@@ -93,17 +110,25 @@
             return $stmt->fetchAll();
         }
 
-
+         
+        //To select customer id
+        public function getCustomerId($customerId)
+        {
+            $sql = "SELECT id FROM customer WHERE id = :customerId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['customerId' => $customerId]);
+            return $stmt->fetch();
+        }       
         //To insert placed orders delivery details
-        public function orderedProductDetails($customerId, $deliveryFee, $deliveryOption, $deliveryTime, $firstPromoOffer, $orderCost, $orderStatus, $paymentOption)
+        public function orderedProductDetails($customerId, $deliveryFee, $deliveryOption, $deliveryTime, $firstPromoOffer, $orderCost, $paymentOption)
         {
             date_default_timezone_set('Asia/Kolkata');
             $createdAt = date("Y-m-d H:i:s", time());
 
-            $sql = "INSERT INTO orders_placed (customer_id, delivery_fee, delivery_option, delivery_time, first_promo_offer_text, order_cost, order_status, pay_option, created_at) VALUES (:customerId, :deliveryFee, :deliveryOption, :deliveryTime, :firstPromoOffer, :orderCost, :orderStatus, :paymentOption, :createdAt)";
+            $sql = "INSERT INTO orders_placed (customer_id, delivery_fee, delivery_option, delivery_time, first_promo_offer_text, order_cost, order_status, pay_option, created_at) VALUES (:customerId, :deliveryFee, :deliveryOption, :deliveryTime, :firstPromoOffer, :orderCost, '1', :paymentOption, :createdAt)";
 
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['customerId' => $customerId, 'deliveryFee' => $deliveryFee, 'deliveryOption' => $deliveryOption, 'deliveryTime' => $deliveryTime, 'firstPromoOffer' => $firstPromoOffer, 'orderCost' => $orderCost, 'orderStatus' => $orderStatus, 'paymentOption' => $paymentOption, 'createdAt' => $createdAt]);
+            $stmt->execute(['customerId' => $customerId, 'deliveryFee' => $deliveryFee, 'deliveryOption' => $deliveryOption, 'deliveryTime' => $deliveryTime, 'firstPromoOffer' => $firstPromoOffer, 'orderCost' => $orderCost, 'paymentOption' => $paymentOption, 'createdAt' => $createdAt]);
             $id = $this->conn->lastInsertId();
             return $id;
         }

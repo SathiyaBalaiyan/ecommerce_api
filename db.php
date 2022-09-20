@@ -118,20 +118,19 @@
             return $stmt->fetch();
         }        
         //To register new customer
-        public function registerCustomer($name, $mobile, $password, $address, $city, $state, $pincode, $country)
+        public function registerCustomer($name, $mobile, $password, $address, $city, $state, $pincode, $country, $customerImage)
         {
             date_default_timezone_set('Asia/Kolkata');
             $createdAt = date("Y-m-d H:i:s", time());
 
             $hashing = md5($password);
 
-            $sql = "INSERT INTO customer (name, mobile, password, address, city, state, pincode, country, created_at) VALUES (:name, :mobile, :password, :address, :city, :state, :pincode, :country, :createdAt)";
+            $sql = "INSERT INTO customer (name, mobile, password, address, city, state, pincode, country, customer_profile, created_at) VALUES (:name, :mobile, :password, :address, :city, :state, :pincode, :country, :customerImage, :createdAt)";
 
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['name' => $name, 'mobile' => $mobile, 'password' => $hashing, 'address' => $address, 'city' => $city, 'state' => $state, 'pincode' => $pincode, 'country' => $country, 'createdAt' => $createdAt]);
+            $stmt->execute(['name' => $name, 'mobile' => $mobile, 'password' => $hashing, 'address' => $address, 'city' => $city, 'state' => $state, 'pincode' => $pincode, 'country' => $country, 'customerImage' => $customerImage, 'createdAt' => $createdAt]);
             return true;
         }
- 
         //To login customer profile
         public function loginCustomer($mobile, $password)
         {
@@ -142,21 +141,61 @@
             $stmt->execute();
             return $stmt->fetch();
         }
-
         //To edit Customer's profile
-        public function updateCustomerProfile($name, $mobile, $password, $email, $address, $city, $state, $pincode, $country, $delivery)
+        public function updateCustomerProfile($name, $mobile, $password, $email, $address, $city, $state, $pincode, $country, $delivery, $customerImage)
         {
             date_default_timezone_set('Asia/Kolkata');
             $updatedAt = date("Y-m-d H:i:s", time());
 
             $hashing = md5($password);
 
-            $sql = "UPDATE customer SET name = :name, password = :password, email = :email, address = :address, city = :city, state = :state, pincode = :pincode, country = :country, delivery = :delivery, updated_at = :updatedAt WHERE mobile = :mobile";
+            $sql = "UPDATE customer SET name = :name, password = :password, email = :email, address = :address, city = :city, state = :state, pincode = :pincode, country = :country, delivery = :delivery, customer_profile = :customerImage, updated_at = :updatedAt WHERE mobile = :mobile";
 
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['name' => $name, 'mobile' => $mobile, 'password' => $hashing, 'email' => $email, 'address' => $address, 'city' => $city, 'state' => $state, 'pincode' => $pincode, 'country' => $country, 'delivery' => $delivery, 'updatedAt' => $updatedAt]);
+            $stmt->execute(['name' => $name, 'mobile' => $mobile, 'password' => $hashing, 'email' => $email, 'address' => $address, 'city' => $city, 'state' => $state, 'pincode' => $pincode, 'country' => $country, 'delivery' => $delivery, 'customerImage' => $customerImage, 'updatedAt' => $updatedAt]);
             return true;
         } 
+        //To insert customer's image
+        public function customerImage($customerImage, $newfilename) 
+        {
+            $fileName  =  $newfilename;
+            $tempPath  =  $customerImage['tmp_name'];
+            $fileSize  =  $customerImage['size'];
+            $upload_path = 'customer/';
+        
+            $fileExt = strtolower(pathinfo($fileName,PATHINFO_EXTENSION)); 
+       
+            $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); 
+    
+            if ($customerImage["error"] > 0)
+            {
+                $errorMSG = json_encode(array("message" => $customerImage["error"], "status" => false));   
+                echo $errorMSG;
+                exit; 
+            }
+    
+            if(in_array($fileExt, $valid_extensions))
+            {               
+
+                if($fileSize < 5000000)
+                {
+                    move_uploaded_file($tempPath, $upload_path . $fileName); 
+                }
+                else
+                {       
+                    $errorMSG = json_encode(array("message" => "Sorry, your file is too large, please upload 5 MB size", "status" => false));   
+                    echo $errorMSG;
+                    exit;
+                }
+            }
+            else
+            {       
+                $errorMSG = json_encode(array("message" => "Sorry, only JPG, JPEG, PNG & GIF files are allowed", "status" => false));   
+                echo $errorMSG;
+                exit;   
+            }
+    
+        }
         
         //To check an exist mobile number in delivery service
         public function existCarrier($mobile)
